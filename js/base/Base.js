@@ -31,3 +31,5 @@ window.$id = (id) => {
     return document.getElementById(id);
 }
 window.$body = document.body;
+
+export default Base;
