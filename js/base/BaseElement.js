@@ -1,8 +1,8 @@
 class BaseElement extends HTMLElement {
     constructor() {
         super();
-        this.innerHTML = this.html();
-        this.doEvents();
+        if(this?.html) this.innerHTML = this.html();
+        this.doEvents?.();
     }
 }
 
