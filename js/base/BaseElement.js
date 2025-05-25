@@ -1,8 +1,12 @@
 class BaseElement extends HTMLElement {
     constructor() {
         super();
-        if(this?.html) this.innerHTML = this.html();
-        this.doEvents?.();
+        try {
+            if(this?.html) this.innerHTML = this.html();
+            this.doEvents?.();
+        } catch(err) {
+            console.error('Error in BaseElement constructor:', err);
+        }
     }
 }
 

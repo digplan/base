@@ -1,16 +1,11 @@
 // Helpers
-
-[
-  './js/base/Base.js',
-  './js/helpers/Api.js',
-  './js/helpers/ExampleListener.js',
-
-].forEach(src => {
-    const script = document.createElement('script');
-    script.src = src;
-    document.head.appendChild(script);
+Promise.all([
+    import('./base/Base.js'),
+    import('./helpers/Api.js'),
+    import('./helpers/ExampleListener.js')
+])
+.catch(err => console.error('Failed to load module:', err))
+.then(() => {
+    // Components
+    import('./components/ex-element.js').catch(err => console.error('Failed to load component:', err));
 });
-
-// Components
-
-import './components/ex-element.js';

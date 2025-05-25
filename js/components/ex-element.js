@@ -12,10 +12,19 @@ class ExElement extends BaseElement {
         // do stuff
     }
     doEvents() {
-        this.addEventListener('mouseenter', () => Base.dispatch('onMoused', { data: 'test' }));
+       this.addEventListener('mouseenter', () => Base.dispatch('onMouseEnter', { data: 'test' }));
     }
-    onMoused(data) {
-        console.log('onMoused', data);
+    onClicker(data) {
+        $('status').innerHTML = 'clicked';
+        setTimeout(() => {
+            $('status').innerHTML = '';
+        }, 1000);
+    }
+    onMouseEnter(data) {
+        $('status').innerHTML += 'mouse entered (listened from element) ';
+        setTimeout(() => {
+            $('status').innerHTML = '';
+        }, 1000);
     }
 }
 

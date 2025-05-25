@@ -4,8 +4,8 @@ globalThis.Base ??= class Base {
         document.body.querySelectorAll('*').forEach(element => {
             element?.[name]?.(data);
         });
-        Object.keys(globalThis).forEach(key => {
-            globalThis[key]?.[name]?.(data);
+        Object.keys(Base).forEach(key => {
+            Base[key]?.[name]?.(data);
         });
     }
 }
@@ -14,7 +14,7 @@ HTMLElement.prototype.validate = function(name, callback) {
     const pattern = this.getAttribute('validity');
     if (!pattern) return;
     const pass = new RegExp(pattern).test(this.value);
-    this.classList.toggle('bad-value', isPassed);
+    this.classList.toggle('bad-value', !pass);
 }
 
 String.prototype.json = function() {
