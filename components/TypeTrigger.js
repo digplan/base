@@ -1,7 +1,7 @@
 import DHTMLElement from '../base-classes/DHTMLElement.js';
 import TimeSelector from './TimeSelector.mjs';
 import TimezoneSelector from './TimezoneSelector.mjs';
-import BaseElement from 'https://tinyurl.com/dpBaseElement';
+import BaseElement from 'https://digplan.github.io/base/components/BaseElement.js';
 
 class TypeTrigger extends BaseElement {
     constructor() {

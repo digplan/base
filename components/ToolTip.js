@@ -1,4 +1,4 @@
-import BaseElement from 'https://tinyurl.com/dpBaseElement';
+import BaseElement from 'https://digplan.github.io/base/components/BaseElement.js';
 globalThis.ToolTip ??= class ToolTip extends BaseElement {
   static show(message, duration = 3000, left = 200, top = 150) {
     $$('tool-tip')?.forEach(tip => { tip.remove() });

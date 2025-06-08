@@ -1,4 +1,4 @@
-import BaseElement from 'https://tinyurl.com/dpBaseElement';
+import BaseElement from 'https://digplan.github.io/base/components/BaseElement.js';
 class IconBox extends BaseElement {
     disableHide = false;
     html() {

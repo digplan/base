@@ -1,5 +1,5 @@
 import Login from '../base-classes/Login.js';
-import BaseElement from 'https://tinyurl.com/dpBaseElement';
+import BaseElement from 'https://digplan.github.io/base/components/BaseElement.js';
 class UserProfile extends BaseElement {
   auth = null;
   debug = false;

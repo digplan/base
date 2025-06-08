@@ -1,4 +1,4 @@
-import BaseElement from 'https://tinyurl.com/dpBaseElement';
+import BaseElement from 'https://digplan.github.io/base/components/BaseElement.js';
 globalThis.ModalConfirmation ??= class ModalConfirmation extends BaseElement {
   html() {
     return `

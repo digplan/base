@@ -1,6 +1,6 @@
 (async () => {
   const API = Object.create(null);
-  const APIDEF = (await import('https://qeditor.dev/base-classes/APIDEF.js')).default;
+  const APIDEF = (await import('./APIDEF.js')).default;
 
   Object.entries(APIDEF).forEach(([key]) => {
     API[key] = (vars, proxy) => API._exec(key, vars, proxy);
