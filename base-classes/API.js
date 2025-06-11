@@ -11,9 +11,8 @@
     return { response: r, request: options, proxy, json: await r.json() };
   }
 
-  API._exec = (name, vars = {}, proxy) => {
-    if (!APIDEF[name]) throw new Error(`Unknown command: ${name}`);
-    if (typeof vars === 'string') return { def: APIDEF[name], params: API._getDef(name).params };
+  API._exec = (name, vars, proxy) => {
+    if(!vars && API._getDef(name).params) return { provide_params: API._getDef(name).params };
     return API._fetch(API._parse(APIDEF[name], vars), proxy);
   }
 
