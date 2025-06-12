@@ -7,9 +7,18 @@
   });
 
   API._fetch = async (options, proxy) => {
-    const r = await fetch(proxy || options.url, proxy ? { method: 'POST', body: JSON.stringify(options) } : options);
+    let r;
+    if (!proxy) {
+      if (options?.body && typeof options.body === 'object') options.body = JSON.stringify(options.body);
+      r = await fetch(options.url, options);
+    } else {
+      options.body = JSON.stringify(options.body);
+      const str = JSON.stringify(options).replace(/\\"/g, '"').replace(/}}/g,'}').replace(/body\":\"/g,'body\":');
+      const b = str.slice(0, -2) + str.slice(-1);
+      r = await fetch(proxy, { method: 'POST', headers: options.headers, body: b });
+    }
     return { response: r, request: options, proxy, json: await r.json() };
-  }
+  };
 
   API._exec = (name, vars, proxy) => {
     if(!vars && API._getDef(name).params) return { provide_params: API._getDef(name).params };
