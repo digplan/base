@@ -7,17 +7,24 @@
   });
 
   API._fetch = async (options, proxy) => {
-    let r;
+    let r, proxied_request;
     if (!proxy) {
       if (options?.body && typeof options.body === 'object') options.body = JSON.stringify(options.body);
       r = await fetch(options.url, options);
     } else {
-      options.body = JSON.stringify(options.body);
-      const str = JSON.stringify(options).replace(/\\"/g, '"').replace(/}}/g,'}').replace(/body\":\"/g,'body\":');
-      const b = str.slice(0, -2) + str.slice(-1);
-      r = await fetch(proxy, { method: 'POST', headers: options.headers, body: b });
+      proxied_request = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url: options.url,
+          method: options.method,
+          headers: options.headers,
+          body: options.body // assumed to be already a string or JSON-safe
+        })
+      };
+      r = await fetch(proxy, proxied_request);
     }
-    return { response: r, request: options, proxy, json: await r.json() };
+    return { response: r, request: options, proxied_request, proxy, json: await r.json() };
   };
 
   API._exec = (name, vars, proxy) => {
