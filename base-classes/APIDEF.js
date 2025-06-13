@@ -7,7 +7,8 @@ const APIDEF = {
     'huggingface': 'POST\nhttps://router.huggingface.co/fireworks-ai/inference/v1/chat/completions\nContent-Type:application/json,Authorization:Bearer $API_KEY_HF\n{"messages":[{"role":"user","content":"$prompt"}],"model":"accounts/fireworks/models/qwen3-235b-a22b","stream":false}',
     'gemini': 'POST\nhttps://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$API_KEY_GEMINI\nContent-Type:application/json\n{"contents": [{ "parts": [{ "text": "$prompt" }] }]}',
     'geminilistmodels': 'GET\nhttps://generativelanguage.googleapis.com/v1beta/models\nContent-Type:application/json,x-goog-api-key:$API_KEY_GEMINI',
-    'emailbrevo': 'POST\nhttps://api.brevo.com/v3/smtp/email\nContent-Type:application/json,api-key:$BREVO\n{"sender":{"email":"$from"},"to":[{"email":"$to"}],"subject":"$subject","htmlContent":"$htmlContent"}'
+    'emailbrevo': 'POST\nhttps://api.brevo.com/v3/smtp/email\nContent-Type:application/json,api-key:$BREVO\n{"sender":{"email":"$from"},"to":[{"email":"$to"}],"subject":"$subject","htmlContent":"$htmlContent"}',
+    'cfllm': 'POST\nhttps://api.cloudflare.com/client/v4/accounts/$API_KEY_CLOUDFLAREID/ai/llm/v1/chat/completions\nContent-Type:application/json,Authorization:Bearer $API_KEY_CLOUDFLARE\n{"messages":[{"role":"user","content":"$prompt"}]}'
 }
 
 export default APIDEF;
