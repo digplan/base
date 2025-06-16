@@ -1,6 +1,27 @@
 globalThis.BrowserCache ??= class BrowserCache {
   static cacheName = "dp-browser-image-cache";
 
+  static async fetchWithBackoff(url, retries = 3) {
+    const delay = ms => new Promise(r => setTimeout(r, ms));
+  
+    for (let i = 0; i < retries; i++) {
+      const response = await fetch(url, { mode: "cors" });
+      if (response.ok) return response;
+  
+      if (response.status === 429) {
+        const retryAfter = response.headers.get("Retry-After");
+        const wait = retryAfter
+          ? parseFloat(retryAfter) * 1000
+          : (i + 1) * 1000;
+        await delay(wait);
+      } else {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+    }
+  
+    throw new Error("Failed after retries (HTTP 429)");
+  }
+  
   static async getImage(name, url) {
     try {
       const cache = await caches.open(this.cacheName);
@@ -12,9 +33,7 @@ globalThis.BrowserCache ??= class BrowserCache {
         };
       }
   
-      const response = await fetch(url, { mode: "cors" });
-      if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-  
+      const response = await this.fetchWithBackoff(url);
       await cache.put(name, response.clone());
       return {
         fromCache: false,
