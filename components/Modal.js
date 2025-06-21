@@ -133,6 +133,7 @@ class Modal extends HTMLElement {
     this.style.zIndex = 20000;
     this.innerHTML = `
         <div class="modal-content">
+            <div class="modal-header">
             <div class="close-btn ok">&times;</div>
             <div class="modal-body"></div>
         </div>`;
