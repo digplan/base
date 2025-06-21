@@ -133,14 +133,15 @@ class Modal extends HTMLElement {
     this.style.zIndex = 20000;
     this.innerHTML = `
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header"></div>
             <div class="close-btn ok">&times;</div>
             <div class="modal-body"></div>
         </div>`;
   }
-  static show(message, data = {}) {
+  static show(message, data = {}, header = '') {
     return new Promise(resolve => {
       const modal = new Modal();
+      modal.querySelector('.modal-header').innerHTML = header;
       modal.querySelector('.modal-body').innerHTML = message;
       document.body.appendChild(modal);
       // Set vals if provided
