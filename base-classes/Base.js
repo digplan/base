@@ -1,6 +1,7 @@
 globalThis.Base ??= class Base {
+    static dontlog = null;
     static dispatch(name, data) {
-        console.log('Events.send', name, data);
+        if (!this.dontlog || !name.match(this.dontlog)) console.log('Events.send', name, data);
         document.body.querySelectorAll('*').forEach(element => {
             element?.[name]?.(data);
         });
