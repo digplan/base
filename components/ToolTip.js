@@ -8,8 +8,17 @@ globalThis.ToolTip ??= class ToolTip extends BaseElement {
     tip.style.top = `${top}px`;
     tip.style.display = 'block';
     tip.style.zIndex = '10000';
-    tip.textContent = typeof message === 'string' ? message : JSON.stringify(message, null, 2);
-    
+
+    if (typeof message === 'object') {
+      tip.textContent = JSON.stringify(message, null, 2);
+    } 
+    else if (typeof message === 'string' && message.startsWith('<')) {
+      tip.innerHTML = message;
+    }
+    else {
+      tip.textContent = message;
+    }
+
     // Auto-hide after duration
     setTimeout(() => {
       tip.remove();
