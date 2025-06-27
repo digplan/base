@@ -74,6 +74,10 @@ class ConnectionManager {
         const arrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         arrowPath.setAttribute('d', 'M 0 0 L 10 5 L 0 10 Z');
         arrowPath.setAttribute('fill', '#3498db');
+
+        arrowPath.sourceNodeId = node1.id;
+        arrowPath.targetNodeId = node2.id;
+        
         arrowMarker.appendChild(arrowPath);
 
         // Append marker to SVG
