@@ -1,4 +1,5 @@
 globalThis.Login ??= class Login {
+  
   constructor() {
     this.auth0 = null;
     this.ready = new Promise((resolve, reject) => {
@@ -26,6 +27,7 @@ globalThis.Login ??= class Login {
       redirect_uri: window.location.origin,
       scope: 'openid profile email'
     });
+    Base.dispatch('onLogin');
   }
 
   async logout() {
