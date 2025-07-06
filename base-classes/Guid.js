@@ -49,6 +49,17 @@ globalThis.Guid ??= class Guid {
         }
         return new Date(num);
     }
+
+    static async safeHash(str) {
+      if(typeof str !== 'string') str = JSON.stringify(str);
+      const bytes = new TextEncoder().encode(str);
+      const hashBuf = await (globalThis.crypto || require('crypto').webcrypto).subtle.digest('SHA-256', bytes);
+      const view = new DataView(hashBuf).getBigUint64(0); // First 8 bytes
+      const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      let out = '', n = view;
+      do { out = chars[n % 62n] + out; n /= 62n; } while (n > 0n);
+      return out;
+    }
 }
 
 export default globalThis.Guid;
