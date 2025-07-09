@@ -33,19 +33,17 @@ const storage = (() => {
   };
 
   obj.saveSetting = (key, value) => {
-    const type = `${window?.user?.shortId}:Settings`;
-    const clientSettings = obj.get(type, "Client") || {};
+    const clientSettings = obj.get("Settings", "Client") || {};
     clientSettings[key] = value;
-    obj.set(type, "Client", clientSettings);
+    obj.set("Settings", "Client", clientSettings);
     return value;
   };
 
   obj.getSetting = (key) => {
-    const type = `${window?.user?.shortId}:Settings`;
     if (key === '*') {
-      return obj.get(type, "Client");
+      return obj.get("Settings", "Client");
     }
-    return obj.get(type, "Client")?.[key];
+    return obj.get("Settings", "Client")?.[key];
   };
 
   return obj;
